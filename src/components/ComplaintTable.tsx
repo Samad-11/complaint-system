@@ -4,8 +4,6 @@ import React from 'react'
 const ComplaintTable = async ({ userId }: { userId: string }) => {
 
     const data = await getUserComplaints(userId)
-
-
     return (
 
         <>

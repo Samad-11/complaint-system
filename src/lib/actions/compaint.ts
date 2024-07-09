@@ -69,6 +69,7 @@ export async function getAllComplaints() {
                 user: true
             }
         })
+        revalidatePath('/admin')
         return complaints
     } catch (error) {
         console.log("error in getAllComplaints");
