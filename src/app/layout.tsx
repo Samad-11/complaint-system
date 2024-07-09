@@ -8,8 +8,22 @@ const poppins = Poppins({ weight: ["200", "300", "500", "600", "700", "800", "90
 
 export const metadata: Metadata = {
   title: "Complaint Box",
-  description: "Web App for complaint",
+  description: "A online system to register your complaints",
   authors: { name: "Abdus Samad" },
+  category: "SYSTEM",
+  creator: "Abdus Samad",
+
+  
+  manifest: "/manifest.json",
+
+  icons: [
+    {
+      rel: "icon", url: "/icons/android-chrome-192x192.png"
+    },
+    {
+      rel: "apple-touch-icon", url: "/icon/apple-touch-icon.png"
+    }
+  ],
 };
 
 export default function RootLayout({
