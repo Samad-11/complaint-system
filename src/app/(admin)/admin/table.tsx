@@ -30,7 +30,7 @@ const Table = async () => {
                                 <tr key={complaint.id} className="hover">
                                     <th>{indx + 1}</th>
                                     <th>{complaint.resolved ? "Resolved" : "Pending"}</th>
-                                    <td>{complaint.user.name}</td>
+                                    <td>{complaint.user ? complaint.user.name : "Guest"}</td>
                                     <td >
                                         <textarea readOnly className='textarea textarea-disabled textarea-ghost cursor-default'
                                             value={complaint.description}
