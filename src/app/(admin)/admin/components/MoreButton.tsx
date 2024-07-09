@@ -3,28 +3,16 @@
 import { resolveProblem } from "@/lib/actions/compaint";
 import { useRef } from "react"
 
-type complaintType = {
-    user: {
-        id: string;
-        email: string;
-        name: string;
-        password: string;
-        phone: string;
-        address: string | null;
-        active: boolean;
-    } | null;
-} & {
-    id: string;
-    description: string;
-    receivedDate: Date;
-    resolvedDate: Date | null;
-    resolved: boolean;
-    type: string;
-    userId: string;
+type propT = {
+    userName: string,
+    phone: string,
+    email: string,
+    description: string,
+    type: string,
+    id: string,
+    resolved: boolean,
 }
-const MoreButton = ({ complaint }: {
-    complaint: complaintType
-}) => {
+const MoreButton = ({ userName, phone, email, type, description, resolved, id }: propT) => {
     const dialogRef = useRef<HTMLDialogElement>(null)
     return (
         <>
@@ -33,23 +21,23 @@ const MoreButton = ({ complaint }: {
             </button>
             <dialog ref={dialogRef} className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">Complainer&apos;s Name : {complaint.user && complaint.user.name}</h3>
-                    <p className="py-4">Contact Number : {complaint.user && complaint.user.phone}</p>
-                    <p className="py-4">Email ID : {complaint.user && complaint.user.email}</p>
-                    <p className="py-4">Problem Type : {complaint.type}</p>
-                    <p className="py-4">Problem description : {complaint.description}</p>
+                    <h3 className="font-bold text-lg">Complainer&apos;s Name : {userName}</h3>
+                    <p className="py-4">Contact Number : {phone}</p>
+                    <p className="py-4">Email ID : {email}</p>
+                    <p className="py-4">Problem Type : {type}</p>
+                    <p className="py-4">Problem description : {description}</p>
                     <div className="modal-action">
                         <form method="dialog">
                             {/* if there is a button in form, it will close the modal */}
                             <button
                                 onClick={async () => {
-                                    if (!complaint.resolved) {
-                                        await resolveProblem(complaint.id)
+                                    if (!resolved) {
+                                        await resolveProblem(id)
                                     }
                                 }}
-                                className={`btn ${complaint.resolved ? "btn-success" : "btn-error"}`}>
+                                className={`btn ${resolved ? "btn-success" : "btn-error"}`}>
                                 {
-                                    complaint.resolved ? "Resolved"
+                                    resolved ? "Resolved"
                                         : "Not Resolved"
                                 }
                             </button>
