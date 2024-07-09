@@ -1,8 +1,10 @@
+'use client'
+import { logout } from '@/lib/actions/auth'
 import React from 'react'
 import { FaRegUserCircle } from 'react-icons/fa'
 import { IoMdLogOut } from 'react-icons/io'
 
-const Navbar = () => {
+const Navbar = ({ userName }: { userName?: string }) => {
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
@@ -27,11 +29,16 @@ const Navbar = () => {
                         </svg>
                     </div>
                     <ul tabIndex={0} className="dropdown-content menu bg-gray-300 text-black rounded-box z-[1] w-52 p-2 shadow">
-                        <li className='flex justify-center flex-row items-center'>
-                            <span>Geetika</span>
+                        <li className='flex justify-center flex-row items-center capitalize'>
+                            <span>{userName ? userName : "Guest"}</span>
                             <span><FaRegUserCircle /></span>
                         </li>
-                        <li className='flex justify-center flex-row items-center'>
+                        <li className='flex justify-center flex-row items-center'
+                            onClick={async () => {
+
+                                await logout();
+                            }}
+                        >
                             <span>Logout</span>
                             <span><IoMdLogOut /></span>
                         </li>
