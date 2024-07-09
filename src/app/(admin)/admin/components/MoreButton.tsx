@@ -12,7 +12,7 @@ type complaintType = {
         phone: string;
         address: string | null;
         active: boolean;
-    };
+    } | null;
 } & {
     id: string;
     description: string;
