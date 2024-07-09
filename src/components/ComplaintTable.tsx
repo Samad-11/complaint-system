@@ -19,7 +19,7 @@ const ComplaintTable = () => {
                         {/* row 1 */}
                         <tr className='hover text-xs'>
                             <th>1</th>
-                            <td><textarea name="" id=""
+                            <td><textarea readOnly
                                 className='textarea-disabled textarea textarea-ghost bg-transparent text-xs sm:w-96'
                             >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem, consequuntur porro doloremque cupiditate ipsam excepturi voluptates deserunt est ipsa ut totam voluptatum. Repellendus autem mollitia, accusamus illo et inventore in a cum!</textarea></td>
                             <td>08th July, 2024</td>
