@@ -39,15 +39,18 @@ const Table = async () => {
                                     <td>{complaint.type}</td>
                                     <td>{complaint.receivedDate.toLocaleDateString()}</td>
                                     <td className=''>
-                                        <MoreButton
-                                            description={complaint.description}
-                                            email={complaint.user.email}
-                                            userName={complaint.user.name}
-                                            id={complaint.id}
-                                            phone={complaint.user.phone}
-                                            resolved={complaint.resolved}
-                                            type={complaint.type}
-                                        />
+                                        {
+                                            complaint.user &&
+                                            <MoreButton
+                                                description={complaint.description}
+                                                email={complaint.user.email}
+                                                userName={complaint.user.name}
+                                                id={complaint.id}
+                                                phone={complaint.user.phone}
+                                                resolved={complaint.resolved}
+                                                type={complaint.type}
+                                            />
+                                        }
                                     </td>
                                 </tr>
                             ))
