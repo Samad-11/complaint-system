@@ -3,14 +3,7 @@
 import { resolveProblem } from "@/lib/actions/compaint";
 import { useRef } from "react"
 
-interface complaintType {
-    id: string;
-    description: string;
-    receivedDate: Date;
-    resolvedDate: Date | null;
-    resolved: boolean;
-    type: string;
-    userId: string;
+type complaintType = {
     user: {
         id: string;
         email: string;
@@ -19,9 +12,16 @@ interface complaintType {
         phone: string;
         address: string | null;
         active: boolean;
-    }
+    };
+} & {
+    id: string;
+    description: string;
+    receivedDate: Date;
+    resolvedDate: Date | null;
+    resolved: boolean;
+    type: string;
+    userId: string;
 }
-
 const MoreButton = ({ complaint }: {
     complaint: complaintType
 }) => {
@@ -33,9 +33,9 @@ const MoreButton = ({ complaint }: {
             </button>
             <dialog ref={dialogRef} className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">Complainer&apos;s Name : {complaint.user.name}</h3>
-                    <p className="py-4">Contact Number : {complaint.user.phone}</p>
-                    <p className="py-4">Email ID : {complaint.user.email}</p>
+                    <h3 className="font-bold text-lg">Complainer&apos;s Name : {complaint.user && complaint.user.name}</h3>
+                    <p className="py-4">Contact Number : {complaint.user && complaint.user.phone}</p>
+                    <p className="py-4">Email ID : {complaint.user && complaint.user.email}</p>
                     <p className="py-4">Problem Type : {complaint.type}</p>
                     <p className="py-4">Problem description : {complaint.description}</p>
                     <div className="modal-action">
