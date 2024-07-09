@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import prisma from "../prisma";
 import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 const secret = 'secret'
 
@@ -72,7 +73,7 @@ export async function register(_prevState: any, formdata: FormData) {
             }
         })
         if (isMailOrPhoneExist[0]) {
-            return { message: "Mail or Phone exists" }
+            return { mailOrPhoneExists: "Mail or Phone exists" }
         }
 
         const user = await prisma.user.create({
@@ -81,7 +82,7 @@ export async function register(_prevState: any, formdata: FormData) {
             }
         })
         if (!user) {
-            return { message: "Unknown Error found" }
+            return
         }
         const { password, ...userWithoutPassword } = user;
 
@@ -111,19 +112,22 @@ export async function login(_prevState: any, formdata: FormData) {
             }
         })
         if (!user) {
-            return { message: "User Not Found !" }
+            return {
+                userNotFound: "User not found "
+            }
 
         } else {
 
             if (user.password !== userPassword) {
-                return { message: "Incorrect Password" }
-            }
-            const { password, ...userWithoutPassword } = user
-            const expires = new Date(Date.now() + 10 * 60 * 1000)
-            const session = await encrypt({ userWithoutPassword, expires })
-            cookies().set("session", session, { expires, httpOnly: true })
+                return { incorrectPassword: "Incorrect Password" }
+            } else {
+                const { password, ...userWithoutPassword } = user
+                const expires = new Date(Date.now() + 10 * 60 * 1000)
+                const session = await encrypt({ userWithoutPassword, expires })
+                cookies().set("session", session, { expires, httpOnly: true })
 
-            redirect('/')
+                redirect('/')
+            }
         }
     } else {
         console.log('zod error')
@@ -135,7 +139,6 @@ export async function login(_prevState: any, formdata: FormData) {
 
 export async function logout() {
     // Destroy the session by clearing the session cookie
-    console.log('inside logout');
 
     cookies().set("session", "", { expires: Date.now() - 24 * 60 * 60 * 1000 });
 }
@@ -146,4 +149,48 @@ export async function getSession() {
         return null
     }
     return await decrypt(session)
+}
+
+const adminSchema = z.object({
+    name: z.string().min(1, "Field is required"),
+    password: z.string().min(1, "Field is required")
+})
+
+export async function adminLogin(_prevState: any, formdata: FormData) {
+    const validation = adminSchema.safeParse({
+        name: formdata.get('name') as string,
+        password: formdata.get('password') as string,
+    })
+
+    if (validation.success) {
+        const name = formdata.get('name') as string
+        const password = formdata.get('password') as string
+        if ((name === process.env.ADMIN_NAME) && (password === process.env.ADMIN_PASSWORD)) {
+            const expires = new Date(Date.now() + 10 * 1000 * 60)
+            const session = await encrypt({ name, expires })
+            cookies().set("session", session, { httpOnly: true, expires })
+            cookies().set("isAuthorized", "true", { httpOnly: true, expires })
+            redirect('/admin')
+        } else {
+            return {
+                invalidCredention: "Invalid Credentials"
+            }
+        }
+    } else {
+        return {
+            errors: validation.error.issues
+        }
+    }
+}
+
+export async function isAuth() {
+    const isAdmin = cookies().get('isAuthorized')?.value === 'true' ? true : false
+    return isAdmin
+}
+
+
+export async function adminLogout() {
+    await logout();
+    cookies().set('isAuthorized', "", { expires: Date.now() - 24 * 60 * 60 * 1000 })
+    redirect('/login')
 }

@@ -1,3 +1,5 @@
+'use client'
+import { adminLogout } from '@/lib/actions/auth'
 import React from 'react'
 
 const NavbarAdmin = () => {
@@ -24,8 +26,16 @@ const NavbarAdmin = () => {
                         </svg>
                     </div>
                     <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                        <li><a>Admin</a></li>
-                        <li><a>Logout</a></li>
+                        <li className='text-center'>Admin</li>
+                        <li>
+                            <button className='btn btn-ghost'
+                                onClick={async () => {
+                                    await adminLogout()
+                                }}
+                                type="button">
+                                Logout
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>

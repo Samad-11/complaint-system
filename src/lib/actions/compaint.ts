@@ -44,6 +44,9 @@ export async function getUserComplaints(userId: string) {
         const userComplaints = await prisma.complaints.findMany({
             where: {
                 userId
+            },
+            orderBy: {
+                receivedDate: "desc"
             }
         })
 
@@ -52,6 +55,40 @@ export async function getUserComplaints(userId: string) {
         }
     } catch (error) {
         console.log("Error getUserComplaints");
+
+    }
+}
+
+export async function getAllComplaints() {
+    try {
+        const complaints = await prisma.complaints.findMany({
+            orderBy: {
+                receivedDate: "desc"
+            },
+            include: {
+                user: true
+            }
+        })
+        return complaints
+    } catch (error) {
+        console.log("error in getAllComplaints");
+    }
+}
+
+
+export async function resolveProblem(id: string) {
+    try {
+        const resolved = await prisma.complaints.update({
+            where: {
+                id
+            },
+            data: {
+                resolved: true,
+                resolvedDate: new Date()
+            }
+        })
+        revalidatePath('/admin')
+    } catch (error) {
 
     }
 }

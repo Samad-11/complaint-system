@@ -12,26 +12,30 @@ import SubmitButton from '../components/SubmitButton'
 
 
 const Form = () => {
-    const [state, formAction] = useFormState(login, { errors: [] })
-    const { pending } = useFormStatus()
+    const [state, formAction] = useFormState(login, { errors: [], userNotFound: undefined, incorrectPassword: undefined })
+
     const emailError = findErrors('email', state?.errors!)
     const passwordError = findErrors('password', state?.errors!)
+
     return (
         <div>
             <form action={formAction}
                 className='space-y-3 w-full'
             >
                 <label className="input input-bordered flex items-center gap-2 rounded-full  bg-transparent max-sm:backdrop-blur-sm ">
-                    <input name='email' type="text" className="grow" placeholder="Email ID" />
+                    <input required name='email' type="text" className="grow" placeholder="Email ID" />
                     <MdOutlineEmail />
 
                 </label>
                 <span className="label-text-alt text-red-500 text-right">
-                    <ErrorMessages errors={emailError} />
+                    {emailError && <ErrorMessages errors={emailError} />}
+                    {state?.userNotFound && <div>{state.userNotFound}</div>}
                 </span>
                 <PasswordField />
                 <span className="label-text-alt text-red-500 text-right">
-                    <ErrorMessages errors={passwordError} />
+                    {passwordError && <ErrorMessages errors={passwordError} />}
+                    {state?.incorrectPassword && <div>{state.incorrectPassword}</div>}
+
                 </span>
                 <div className=' flex justify-end pr-5'>
                     <Link href={'/forget-password'} className='text-sm font-bold text-right'>Forget Password ?</Link>

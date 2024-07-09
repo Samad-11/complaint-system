@@ -1,8 +1,8 @@
 'use client'
 import React, { useId, useRef } from 'react'
-import SubmitButton from '../app/(auh)/components/SubmitButton'
 import { useFormState } from 'react-dom'
 import { addNewComplaint } from '@/lib/actions/compaint'
+import SubmitButton from '@/app/(auth)/components/SubmitButton'
 
 const ComplainForm = ({ userId }: { userId: string }) => {
     const [state, formAction] = useFormState(addNewComplaint, { errors: [] })
