@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 import { MiddlewareConfig, NextRequest, NextResponse } from "next/server";
-import { isAuth } from "./lib/actions/auth";
 
 
 export async function middleware(req: NextRequest) {

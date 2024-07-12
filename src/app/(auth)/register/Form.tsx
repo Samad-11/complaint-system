@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React from 'react'
 import { useFormState } from 'react-dom'
 import { FaRegUserCircle } from 'react-icons/fa'
-import { MdOutlinePhoneEnabled, MdOutlineEmail, MdOutlineVpnKey, MdOutlineAddLocationAlt } from 'react-icons/md'
+import { MdOutlinePhoneEnabled, MdOutlineEmail, MdOutlineVpnKey, MdOutlineAddLocationAlt, MdOutlineHomeRepairService } from 'react-icons/md'
 import ErrorMessages from '../components/ErrorMessages'
 import { findErrors } from '../components/findErrors'
 import SubmitButton from '../components/SubmitButton'
@@ -19,6 +19,27 @@ const Form = () => {
     const phoneError = findErrors("phone", state?.errors!)
     const addressError = findErrors("address", state?.errors!)
     const passwordError = findErrors("password", state?.errors!)
+
+    const optionsArray = [
+        'Information Technology & Communication(IT&C)',
+        'Human Resources(HR)',
+        'Finance',
+        'Downstream',
+        'Power House',
+        'Corporate Social Responsibility(CSR)',
+        'Technical Division',
+        'Civil Infra Works(CIW)',
+        'Environment',
+        'Central Library',
+        'Quality Control(Q&C)',
+        'Department of Official Language(Rajbhasha Vibhaag)',
+        'Records Management',
+        'Security & Safety Department',
+        'Medical Service',
+        'Law Department',
+        'other'
+    ];
+
     return (
         <div>
             <form action={formAction} className='space-y-3 w-full'
@@ -27,6 +48,22 @@ const Form = () => {
                     <input required type="text" name='name' className="grow" placeholder="Name" />
                     <FaRegUserCircle />
 
+                </label>
+                <label className=" input input-bordered flex items-center gap-2 rounded-full  bg-transparent max-sm:backdrop-blur-sm">
+                    <select name='department' defaultValue={''} className="select bg-transparent w-full border-none focus:border-none focus:outline-none px-0
+                    "
+                        required>
+                        <option disabled className='pb-1 '
+                            value={''}>Department</option>
+                        {
+                            optionsArray.map((option, index) => (
+                                <option className='mb-1 backdrop-blur-sm' key={index} value={option}>{option}</option>
+                            ))
+                        }
+
+
+                    </select>
+                    <MdOutlineHomeRepairService />
                 </label>
                 <span className="label-text-alt text-red-500 text-right">
                     {nameError && <ErrorMessages errors={nameError} />}

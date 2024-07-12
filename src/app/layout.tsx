@@ -12,10 +12,7 @@ export const metadata: Metadata = {
   authors: { name: "Abdus Samad" },
   category: "SYSTEM",
   creator: "Abdus Samad",
-
-  
   manifest: "/manifest.json",
-
   icons: [
     {
       rel: "icon", url: "/icons/android-chrome-192x192.png"

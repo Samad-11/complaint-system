@@ -37,9 +37,9 @@ const Form = () => {
                     {state?.incorrectPassword && <div>{state.incorrectPassword}</div>}
 
                 </span>
-                <div className=' flex justify-end pr-5'>
+                {/* <div className=' flex justify-end pr-5'>
                     <Link href={'/forget-password'} className='text-sm font-bold text-right'>Forget Password ?</Link>
-                </div>
+                </div> */}
                 <SubmitButton buttonText="Login" />
                 <div className=' flex justify-center pr-5'>
                     <p className='text-sm font-bold text-right'>Do not have an account ?

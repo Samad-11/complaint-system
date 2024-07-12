@@ -33,6 +33,7 @@ export async function decrypt(input: string) {
 
 const registerSchema = z.object({
     name: z.string().min(3, "Name should have minimum 3 characters"),
+    department: z.string().min(1, "Department field is required"),
     email: z.string().email().min(1, "Email cannot be blank"),
     phone: z.string().refine(validator.isMobilePhone, "Not a valid phone number"),
     address: z.string().min(1, "Address field cannot be empty "),
@@ -52,6 +53,7 @@ export async function register(_prevState: any, formdata: FormData) {
         phone: formdata.get('phone') as string,
         address: formdata.get('address') as string,
         password: formdata.get('password') as string,
+        department: formdata.get("department") as string
     })
 
     if (validation.success) {
@@ -60,6 +62,10 @@ export async function register(_prevState: any, formdata: FormData) {
         const phone = formdata.get('phone') as string
         const address = formdata.get('address') as string
         const userPassword = formdata.get('password') as string
+        const department = formdata.get("department") as string
+
+
+
         const isMailOrPhoneExist = await prisma.user.findMany({
             where: {
                 OR: [
@@ -78,11 +84,11 @@ export async function register(_prevState: any, formdata: FormData) {
 
         const user = await prisma.user.create({
             data: {
-                email, name, password: userPassword, phone, address
+                email, name, password: userPassword, phone, address, department
             }
         })
         if (!user) {
-            return
+            return { mailOrPhoneExists: "Something went wrong" }
         }
         const { password, ...userWithoutPassword } = user;
 

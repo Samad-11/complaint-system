@@ -59,8 +59,24 @@ export async function getUserComplaints(userId: string) {
     }
 }
 
-export async function getAllComplaints() {
+export async function getAllComplaints(filter?: string) {
+    console.log('====================================');
+    console.log(filter);
+    console.log('====================================');
     try {
+        if (filter === 'resolved' || filter === "pending") {
+            const complaints = await prisma.complaints.findMany({
+                orderBy: { receivedDate: "desc" },
+                where: {
+                    resolved: (filter === "resolved" ? true : false)
+                },
+                include: {
+                    user: true
+                }
+            })
+            revalidatePath(`admin?complaints=${filter}`)
+            return complaints
+        }
         const complaints = await prisma.complaints.findMany({
             orderBy: {
                 receivedDate: "desc"
@@ -77,7 +93,7 @@ export async function getAllComplaints() {
 }
 
 
-export async function resolveProblem(id: string) {
+export async function resolveProblem({ id }: { id: string }) {
     try {
         const resolved = await prisma.complaints.update({
             where: {
@@ -88,7 +104,7 @@ export async function resolveProblem(id: string) {
                 resolvedDate: new Date()
             }
         })
-        revalidatePath('/admin')
+        revalidatePath('/')
     } catch (error) {
 
     }

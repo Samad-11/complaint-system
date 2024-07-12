@@ -13,7 +13,7 @@ const RegisterPage = () => {
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content text-neutral-content text-center">
                     <div className="max-w-sm sm:min-w-[33rem] sm:px-6 py-7 sm:border rounded-lg sm:backdrop-blur-sm">
-                        <h1 className="mb-8 text-5xl font-bold">Register</h1>
+                        <h1 className="mb-8 text-5xl font-bold">Registration</h1>
                         <Form />
                     </div>
                 </div>
