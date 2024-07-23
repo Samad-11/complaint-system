@@ -8,7 +8,7 @@ const ComplainForm = ({ userId }: { userId: string }) => {
     const [state, formAction] = useFormState(addNewComplaint, { errors: [] })
     const formRef = useRef<HTMLFormElement>(null)
     return (
-        <div className='flex justify-center items-center flex-col'>
+        <div className='flex justify-center items-center flex-col '>
             <div className='w-full max-w-7xl'>
                 <h1
                     className='text-2xl font-semibold my-5 text-center'
@@ -43,7 +43,7 @@ const ComplainForm = ({ userId }: { userId: string }) => {
                         </div>
                         <textarea name='description' className="textarea textarea-bordered h-24" placeholder="Enter your complaint description..."></textarea>
                     </label>
-                    <input type="text" name="userId" hidden value={userId} />
+                    <input type="text" name="userId" hidden value={userId} readOnly />
                     <SubmitButton buttonText='Send Complaint'
                         className="ghost bg-transparent mt-8 text-white border-white hover:scale-95 transition-all"
                     />

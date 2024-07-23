@@ -8,7 +8,9 @@ const withPWA = withPWAInit({
 const nextConfig = {};
 
 export default withPWA({
-  nextConfig,
+  images: {
+    remotePatterns: [{ hostname: "upload.wikimedia.org" }],
+  },
 });
 
 // export default nextConfig;

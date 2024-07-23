@@ -1,5 +1,5 @@
 import React from 'react'
-import bg from '../../../../public/assets/images/bg-Images/b2.jpg'
+import bg from '../../../../public/assets/images/bg-Images/b1.jpg'
 import { MdOutlineEmail, MdOutlineVpnKey } from 'react-icons/md'
 import Link from 'next/link'
 import Form from './Form'

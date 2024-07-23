@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar'
 import { getSession, isAuth } from '@/lib/actions/auth'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import bg from '../../public/assets/images/bg-Images/b2.jpg'
 
 const HomePage = async () => {
   const session = await getSession();
@@ -20,7 +21,10 @@ const HomePage = async () => {
 
 
   return (
-    <main>
+    <main
+    >
+
+
       <Navbar userName={obj?.userWithoutPassword?.name} />
       <div className='px-10 w-full '>
         <ComplainForm userId={obj.userWithoutPassword.id!} />

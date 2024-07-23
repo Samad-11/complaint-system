@@ -1,5 +1,5 @@
 import React from 'react'
-import bg from '../../../../public/assets/images/bg-Images/b2.jpg'
+import bg from '../../../../public/assets/images/bg-Images/b1.jpg'
 import Form from './Form'
 import { isAuth } from '@/lib/actions/auth'
 import { redirect } from 'next/navigation'

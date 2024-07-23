@@ -3,7 +3,7 @@
 import PasswordField from '@/components/PasswordField'
 import { register } from '@/lib/actions/auth'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormState } from 'react-dom'
 import { FaRegUserCircle } from 'react-icons/fa'
 import { MdOutlinePhoneEnabled, MdOutlineEmail, MdOutlineVpnKey, MdOutlineAddLocationAlt, MdOutlineHomeRepairService } from 'react-icons/md'
@@ -40,6 +40,8 @@ const Form = () => {
         'other'
     ];
 
+    const [department, setDepartment] = useState('')
+
     return (
         <div>
             <form action={formAction} className='space-y-3 w-full'
@@ -49,15 +51,16 @@ const Form = () => {
                     <FaRegUserCircle />
 
                 </label>
-                <label className=" input input-bordered flex items-center gap-2 rounded-full  bg-transparent max-sm:backdrop-blur-sm">
-                    <select name='department' defaultValue={''} className="select bg-transparent w-full border-none focus:border-none focus:outline-none px-0
-                    "
+                <label className="input input-bordered flex items-center gap-2 rounded-full  bg-transparent max-sm:backdrop-blur-sm">
+                    <select name='department' defaultValue={''} className={`select bg-transparent w-full border-none 
+                    focus:border-none focus:outline-none px-0 ${department == "" ? "text-gray-400 text-base" : ""}`}
                         required>
-                        <option disabled className='pb-1 '
-                            value={''}>Department</option>
+                        <option disabled className='pb-1  '
+                            value={''}
+                        >Department</option>
                         {
                             optionsArray.map((option, index) => (
-                                <option className='mb-1 backdrop-blur-sm' key={index} value={option}>{option}</option>
+                                <option className='mb-1 backdrop-blur-sm text-black' key={index} value={option}>{option}</option>
                             ))
                         }
 

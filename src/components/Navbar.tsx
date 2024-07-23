@@ -1,14 +1,22 @@
 'use client'
 import { logout } from '@/lib/actions/auth'
+import Image from 'next/image'
 import React from 'react'
 import { FaRegUserCircle } from 'react-icons/fa'
 import { IoMdLogOut } from 'react-icons/io'
 
 const Navbar = ({ userName }: { userName?: string }) => {
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 ">
             <div className="flex-1">
                 <a className="btn btn-ghost text-xl">
+                    <figure className='relative lg:size-20 md:size-16 sm:size-12 size-10 mr-1'>
+                        <Image
+                            fill
+                            className='object-contain'
+                            src={'https://upload.wikimedia.org/wikipedia/commons/8/82/NHPC_Logo_PNG_File.png?20220902073250'}
+                            alt="NHPC Logo" />
+                    </figure>
                     Complaint Box
                 </a>
             </div>

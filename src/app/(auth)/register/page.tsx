@@ -1,5 +1,5 @@
 import React from 'react'
-import bg from '../../../../public/assets/images/bg-Images/b2.jpg'
+import bg from '../../../../public/assets/images/bg-Images/b1.jpg'
 import Form from './Form'
 
 const RegisterPage = () => {
@@ -8,7 +8,7 @@ const RegisterPage = () => {
             <div
                 className="hero min-h-screen"
                 style={{
-                    backgroundImage: `url(${bg.src})`,
+                    backgroundImage: `url(${bg.src}`,
                 }}>
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content text-neutral-content text-center">
